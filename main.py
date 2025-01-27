@@ -134,10 +134,15 @@ def main():
     bombs = []
     fruit_add_counter = 0
     bomb_add_counter = 0
-    add_fruit_rate = 30
-    add_bomb_rate = 100
+    add_fruit_rate = 80
+    add_bomb_rate = 200
     basket = Basket(display_width * 0.35, display_height - 160)
     play = True
+
+    # Speed of dropping fruit/bomb
+    fruit_speed = 5 
+    bomb_speed = 5
+
     while play:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -165,7 +170,7 @@ def main():
             bombs.append(new_bomb)
         for item in fruits:
             item.draw(window)
-            item.y += item.vel
+            item.y += fruit_speed
         for item in fruits[:]:
             if (item.hitbox[0] >= basket.hitbox[0] - 20) and (item.hitbox[0] <= basket.hitbox[0] + 70):
                 if basket.hitbox[1] - 120 <= item.hitbox[1] <= basket.hitbox[1] - 40:
@@ -176,7 +181,7 @@ def main():
                     print("Score:", score)
         for item in bombs:
             item.draw(window)
-            item.y += item.vel
+            item.y += bomb_speed
         for item in bombs[:]:
             if (item.hitbox[0] >= basket.hitbox[0]) and (item.hitbox[0] <= basket.hitbox[0] + 50):
                 if basket.hitbox[1] - 120 <= item.hitbox[1] <= basket.hitbox[1] - 40:
