@@ -91,6 +91,8 @@ def button(msg, x, y, width, height, inactive_color, active_color, action = None
                 help_page()
             elif (action == "back"):
                 game_intro()
+            elif (action == "restart"):
+                main()
     else:
         pygame.draw.rect(window, inactive_color, (x, y, width, height))
     message_to_screen(msg, (x + (width/2)), (y + (height/2)), 20)
@@ -127,7 +129,28 @@ def game_intro():
         button("Help", 200, 450, 75, 50, dark_blue, bright_blue, "instructions")
         pygame.display.update()
         clock.tick(15)
-    
+
+def game_over(score):
+    end_screen = True
+    while end_screen:
+        window.fill(black)
+        font = pygame.font.SysFont(None, 64)
+        text = font.render(f"Game Over! Score: {score}", True, white)
+        text_rect = text.get_rect(center=(display_width/2, display_height/2))
+        window.blit(text, text_rect)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+                
+        # Add buttons for restart and quit
+        button("Restart", 100, 450, 80, 50, dark_blue, bright_blue, "restart")
+        button("Quit", 300, 450, 80, 50, dark_red, bright_red, "quit")
+        
+        pygame.display.update()
+        clock.tick(15)
+
 def main():
     score = 0
     fruits = []
@@ -185,6 +208,7 @@ def main():
         for item in bombs[:]:
             if (item.hitbox[0] >= basket.hitbox[0]) and (item.hitbox[0] <= basket.hitbox[0] + 50):
                 if basket.hitbox[1] - 120 <= item.hitbox[1] <= basket.hitbox[1] - 40:
+                    game_over(score)  # Add this line
                     play = False
         message_to_screen("Score: "+str(score), 50, 30, 20)
         basket.draw(window)
