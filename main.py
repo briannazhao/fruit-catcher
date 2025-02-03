@@ -21,11 +21,11 @@ bright_blue = (0, 0, 255)
 display_width = 500
 display_height = 800
 window = pygame.display.set_mode((display_width, display_height))
-pygame.display.set_caption("Fruit Catcher")
+pygame.display.set_caption("Gold Collector")
 
 #IMAGES
 basket_img = pygame.image.load('basket.png')
-basket_img = pygame.transform.scale(basket_img, (150, 100))
+basket_img = pygame.transform.scale(basket_img, (150, 200))
 bg = pygame.image.load('background.jpg')
 bomb_img = pygame.image.load('bomb.png')
 bomb_img = pygame.transform.scale(bomb_img, (100, 100))
@@ -123,7 +123,7 @@ def game_intro():
                 pygame.quit()
                 quit()
         window.blit(bg, (0,0))
-        message_to_screen("FRUIT CATCHER", display_width/2, display_height/2, 50)
+        message_to_screen("GOLD COLLECTOR", display_width/2, display_height/2, 50)
         button("Start", 100, 450, 75, 50, dark_green, bright_green, "play")
         button("Quit", 300, 450, 75, 50, dark_red, bright_red, "quit")
         button("Help", 200, 450, 75, 50, dark_blue, bright_blue, "instructions")
@@ -159,7 +159,7 @@ def main():
     bomb_add_counter = 0
     add_fruit_rate = 80
     add_bomb_rate = 200
-    basket = Basket(display_width * 0.35, display_height - 160)
+    basket = Basket(display_width * 0.35, display_height - 250)
     play = True
 
     # Speed of dropping fruit/bomb
